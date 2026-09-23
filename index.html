@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Reflection — v2</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="A personal leadership-coaching reflection (version 2), presented as a keynote deck.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0e1c; --bg2:#0e1530;
+  --ink:#eef2fb; --muted:#9aa6c4; --faint:#69749a;
+  --line:rgba(255,255,255,.10);
+  --card:rgba(255,255,255,.045);
+  --card2:rgba(255,255,255,.06);
+  --blue:#5b8cff; --blue2:#8fb2ff;
+  --gold:#e6b25e; --gold2:#f2cd8a;
+  --green:#37c08a; --amber:#e0aa46; --clay:#e07a5f;
+  --heritage:#6ea0ff;
+  --maxw:1080px;
+  --head:54px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:'Outfit',system-ui,sans-serif;
+  background:var(--bg); color:var(--ink);
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  overflow:hidden;
+}
+
+/* ---------- aurora backdrop ---------- */
+.aurora{position:fixed;inset:0;z-index:0;overflow:hidden;background:
+  radial-gradient(1200px 800px at 78% -10%, #16224f 0%, transparent 55%),
+  radial-gradient(1000px 700px at 8% 110%, #10203f 0%, transparent 55%),
+  linear-gradient(160deg,var(--bg) 0%, var(--bg2) 55%, #0a0f22 100%);}
+.aurora::before,.aurora::after{content:"";position:absolute;border-radius:50%;filter:blur(70px);opacity:.5;mix-blend-mode:screen}
+.aurora::before{width:52vw;height:52vw;left:-10vw;top:-14vw;background:radial-gradient(circle,#3b5bdb,transparent 62%);animation:drift1 26s ease-in-out infinite}
+.aurora::after{width:46vw;height:46vw;right:-12vw;bottom:-16vw;background:radial-gradient(circle,#1f8a8a,transparent 62%);animation:drift2 32s ease-in-out infinite}
+.grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.035;
+  background-image:radial-gradient(rgba(255,255,255,.9) .5px,transparent .5px);background-size:3px 3px}
+#confetti{position:fixed;inset:0;z-index:60;pointer-events:none}
+@keyframes drift1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(6vw,4vw) scale(1.12)}}
+@keyframes drift2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-5vw,-3vw) scale(1.15)}}
+
+/* ---------- top progress ---------- */
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:44;background:rgba(255,255,255,.06)}
+.topbar > i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--gold));transition:width .45s cubic-bezier(.4,0,.2,1);box-shadow:0 0 12px rgba(91,140,255,.6)}
+
+/* ---------- top header navigator ---------- */
+.deckhead{position:fixed;top:3px;left:0;right:0;z-index:42;height:var(--head);display:flex;align-items:center;gap:16px;
+  padding:0 16px 0 14px;background:rgba(9,13,26,.74);backdrop-filter:blur(16px) saturate(1.25);border-bottom:1px solid var(--line)}
+.dh-left{display:flex;align-items:center;gap:11px;flex:0 0 auto}
+.dh-badge{width:30px;height:30px;border-radius:9px;border:0;cursor:pointer;display:grid;place-items:center;
+  background:linear-gradient(150deg,#5182ff,#2f5bd6);box-shadow:0 3px 10px rgba(47,91,214,.5),inset 0 1px 0 rgba(255,255,255,.3);transition:transform .2s}
+.dh-badge:hover{transform:translateY(-1px)}
+.dh-badge svg{width:16px;height:16px;fill:#fff}
+.dh-title{font-size:14px;color:var(--muted);white-space:nowrap;display:flex;align-items:center;gap:8px}
+.dh-title b{color:var(--ink);font-weight:600}
+.dh-title .dh-sep{color:var(--faint)}
+.dh-title .dh-sub{color:var(--muted);font-weight:300}
+.dh-title .dh-v{font-size:11px;font-weight:700;letter-spacing:.05em;color:#0a0e1c;background:var(--gold);padding:2px 7px;border-radius:20px}
+
+.dh-nav{flex:1 1 auto;display:flex;align-items:center;gap:4px;overflow-x:auto;scrollbar-width:none;padding:0 4px;
+  -webkit-mask:linear-gradient(90deg,transparent,#000 20px,#000 calc(100% - 20px),transparent);
+  mask:linear-gradient(90deg,transparent,#000 20px,#000 calc(100% - 20px),transparent)}
+.dh-nav::-webkit-scrollbar{display:none}
+.dh-pill{flex:0 0 auto;display:inline-flex;align-items:center;gap:7px;border:1px solid transparent;background:transparent;color:var(--muted);
+  font-family:inherit;font-size:13px;font-weight:500;padding:6px 12px;border-radius:20px;cursor:pointer;white-space:nowrap;transition:all .2s;line-height:1}
+.dh-pill .pn{font-size:11px;color:var(--faint);font-variant-numeric:tabular-nums;font-weight:600}
+.dh-pill:hover{background:rgba(255,255,255,.06);color:var(--ink)}
+.dh-pill:hover .pn{color:var(--gold)}
+.dh-pill.on{background:linear-gradient(120deg,#2f5bd6,#5182ff);color:#fff;border-color:rgba(143,178,255,.5);box-shadow:0 3px 12px rgba(47,91,214,.4)}
+.dh-pill.on .pn{color:rgba(255,255,255,.82)}
+
+.dh-right{flex:0 0 auto;display:flex;align-items:center;gap:12px}
+.dh-arrows{display:flex;align-items:center;gap:3px;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:20px;padding:3px}
+.dh-arrows button{width:28px;height:26px;border:0;border-radius:16px;background:transparent;color:var(--muted);cursor:pointer;font-size:15px;line-height:1;transition:all .2s;display:grid;place-items:center}
+.dh-arrows button:hover{background:rgba(255,255,255,.12);color:var(--ink)}
+.dh-key{font-size:12px;color:var(--faint);display:flex;align-items:center;gap:6px;white-space:nowrap}
+.dh-key kbd{font-family:inherit;font-size:11px;background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:6px;padding:2px 8px;color:var(--muted)}
+
+/* ---------- deck / slides ---------- */
+#deck{position:relative;z-index:5;height:100vh;overflow-y:scroll;scroll-snap-type:y mandatory;scroll-behavior:smooth;scrollbar-width:none}
+#deck::-webkit-scrollbar{display:none}
+.slide{min-height:100vh;scroll-snap-align:start;scroll-snap-stop:always;display:grid;place-items:center;padding:96px 84px 60px;position:relative}
+.wrap{width:100%;max-width:var(--maxw);margin:0 auto}
+
+.tag{display:inline-flex;align-items:center;gap:10px;font-size:14px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:22px;font-weight:600}
+.tag .n{font-family:'Newsreader',serif;font-style:italic;font-size:17px;color:var(--gold2);letter-spacing:0}
+.tag::before{content:"";width:26px;height:1px;background:linear-gradient(90deg,var(--gold),transparent)}
+
+h1{font-size:clamp(42px,7vw,92px);font-weight:700;line-height:1.02;letter-spacing:-.02em}
+h2{font-size:clamp(30px,4vw,50px);font-weight:600;line-height:1.08;letter-spacing:-.015em;margin-bottom:8px}
+.sub{font-size:clamp(17px,1.7vw,22px);color:var(--muted);font-weight:300;line-height:1.55}
+.lead{font-family:'Newsreader',serif;font-style:italic;font-size:clamp(19px,2.3vw,28px);color:var(--blue2);line-height:1.5;font-weight:400}
+
+/* reveal */
+.rise{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+.rise.in{opacity:1;transform:none}
+
+/* ---------- title slide ---------- */
+.title-wrap{max-width:940px}
+.title-wrap h1{margin:6px 0 20px}
+.title-wrap h1 .grad{background:linear-gradient(100deg,var(--blue2),var(--gold2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.byline{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;margin-top:30px;font-size:16.5px;color:var(--muted)}
+.byline .who{font-size:21px;color:var(--ink);font-weight:600;letter-spacing:.01em}
+.byline .dot{width:4px;height:4px;border-radius:50%;background:var(--faint)}
+.title-lead{margin-top:34px;max-width:680px}
+
+/* download buttons on slide 1 */
+.s1-dl{position:absolute;top:74px;right:84px;display:flex;gap:10px;z-index:6}
+.dlbtn{display:inline-flex;align-items:center;gap:9px;font-family:inherit;font-size:13px;font-weight:500;color:var(--ink);
+  background:rgba(255,255,255,.055);border:1px solid var(--line);padding:9px 15px;border-radius:11px;cursor:pointer;text-decoration:none;transition:all .2s}
+.dlbtn:hover{background:rgba(255,255,255,.11);border-color:rgba(143,178,255,.45);transform:translateY(-1px)}
+.dlbtn svg{width:16px;height:16px;flex:0 0 auto}
+.dlbtn .ft{font-size:10.5px;font-weight:700;letter-spacing:.05em;padding:2px 6px;border-radius:5px}
+.dlbtn.pdf .ft{background:rgba(224,122,95,.18);color:#f0a48d}
+.dlbtn.doc .ft{background:rgba(91,140,255,.18);color:var(--blue2)}
+.dlbtn .lbl{color:var(--muted);font-weight:400}
+.dlbtn:hover .lbl{color:var(--ink)}
+
+/* ---------- agenda ---------- */
+.agenda{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.agrow{display:grid;grid-template-columns:96px 1fr auto;align-items:center;gap:22px;padding:17px 8px;border-bottom:1px solid var(--line);cursor:pointer;transition:padding .3s,background .3s}
+.agrow:hover{padding-left:20px;background:linear-gradient(90deg,rgba(91,140,255,.06),transparent)}
+.agrow .num{font-family:'Newsreader',serif;font-size:38px;color:var(--faint);font-weight:400;transition:color .3s}
+.agrow:hover .num{color:var(--gold)}
+.agrow .t{font-size:clamp(21px,2.5vw,32px);font-weight:500}
+.agrow .meta{font-size:15px;color:var(--faint);text-align:right;max-width:240px}
+
+/* ---------- learned / generic content ---------- */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:26px}
+.point{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 24px;position:relative;overflow:hidden}
+.point::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(var(--blue),transparent)}
+.point.gold::before{background:linear-gradient(var(--gold),transparent)}
+.point.wide{grid-column:1/-1}
+.point h4{font-size:18px;font-weight:600;margin-bottom:6px;letter-spacing:.01em}
+.point p{font-size:15.5px;color:var(--muted);line-height:1.55;font-weight:300}
+.point .k{color:var(--blue2);font-weight:500}
+.point .kg{color:var(--gold2);font-weight:500}
+
+ul.flow{list-style:none;margin-top:24px;display:flex;flex-direction:column;gap:15px;max-width:920px}
+ul.flow li{position:relative;padding-left:30px;font-size:clamp(16px,1.9vw,20px);line-height:1.5;color:#dbe2f4;font-weight:300}
+ul.flow li::before{content:"";position:absolute;left:0;top:.62em;width:9px;height:9px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 4px rgba(91,140,255,.14)}
+ul.flow li b,ul.flow li strong{color:var(--ink);font-weight:600}
+ul.flow li em{font-family:'Newsreader',serif;color:var(--gold2);font-style:italic}
+
+/* myself slide accent */
+.disc{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0 20px;max-width:620px}
+.disc .cell{background:var(--card2);border:1px solid var(--line);border-radius:14px;padding:16px 20px}
+.disc .cell .lab{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin-bottom:6px}
+.disc .cell .val{font-size:22px;font-weight:600}
+.disc .cell .val.hi{color:var(--green)}
+.disc .cell .val.lo{color:var(--clay)}
+
+/* ---------- status board ---------- */
+.board{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:24px}
+.col{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:6px 6px 12px;display:flex;flex-direction:column}
+.col > .head{display:flex;align-items:center;gap:10px;padding:16px 18px 14px;font-size:14px;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+.col .pill{font-size:12px;font-weight:800;color:#08110d;padding:3px 11px;border-radius:20px;letter-spacing:.08em;white-space:nowrap}
+.col.done .pill{background:var(--green)} .col.done{border-top:2px solid var(--green)}
+.col.prog .pill{background:var(--amber);color:#1a1203} .col.prog{border-top:2px solid var(--amber)}
+.col.open .pill{background:var(--blue);color:#fff} .col.open{border-top:2px solid var(--blue)}
+.col .head .cap{color:var(--muted);font-weight:600;letter-spacing:.1em}
+.col ul{list-style:none;display:flex;flex-direction:column;gap:8px;padding:4px 16px 8px}
+.col li{font-size:14.5px;line-height:1.42;color:#d3dbef;font-weight:300;padding-left:16px;position:relative}
+.col li::before{content:"";position:absolute;left:0;top:.55em;width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.5}
+.col.done li{color:#cfe9df}.col.prog li{color:#ece0c6}.col.open li{color:#d4e0fb}
+.col li b{color:#fff;font-weight:600}
+
+/* ---------- feedback slide ---------- */
+.fb-grid{display:grid;grid-template-columns:1fr;gap:18px;margin-top:20px;max-width:940px}
+.thanks{font-size:clamp(16px,1.8vw,19px);line-height:1.6;color:#d7def0;font-weight:300}
+.thanks .h{color:var(--gold2);font-weight:500}
+.fb-sug{display:flex;flex-direction:column;gap:10px}
+.fb-label{display:inline-flex;align-items:center;gap:9px;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.fb-label::before{content:"";width:18px;height:1px;background:var(--gold)}
+.quote{position:relative;background:linear-gradient(120deg,rgba(91,140,255,.10),rgba(230,178,94,.06));border:1px solid rgba(143,178,255,.22);border-left:3px solid var(--blue);border-radius:0 16px 16px 0;padding:22px 30px 22px 34px}
+.quote::before{content:"\201C";position:absolute;left:12px;top:-6px;font-family:'Newsreader',serif;font-size:64px;color:rgba(143,178,255,.35);line-height:1}
+.quote p{font-family:'Newsreader',serif;font-size:clamp(18px,2vw,24px);font-style:italic;line-height:1.5;color:#eaf0ff}
+.note{font-size:14.5px;color:var(--faint);line-height:1.55;font-weight:300;max-width:900px}
+.note b{color:var(--muted);font-weight:500}
+
+/* ---------- close ---------- */
+.close-wrap{max-width:900px}
+.qs{display:flex;flex-direction:column;gap:18px;margin-top:14px}
+.qbig{font-family:'Newsreader',serif;font-size:clamp(22px,3vw,36px);line-height:1.32;color:var(--ink);font-weight:400;padding-left:26px;border-left:2px solid var(--gold);font-style:italic}
+.qbig span{color:var(--gold2)}
+.endcard{text-align:center;max-width:760px}
+.endcard .big{font-family:'Newsreader',serif;font-size:clamp(30px,4.6vw,54px);font-weight:500;line-height:1.08;letter-spacing:-.01em}
+.endcard .big .grad{background:linear-gradient(100deg,var(--blue2),var(--gold2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.endcard .endnote{font-family:'Newsreader',serif;font-style:italic;font-size:clamp(16px,1.85vw,22px);line-height:1.6;color:var(--blue2);max-width:760px;margin:20px auto 0}
+.endcard .signoff{font-size:clamp(15px,1.55vw,19px);color:var(--muted);font-weight:300;margin-top:18px}
+.endcard .signoff em{font-family:'Newsreader',serif;color:var(--gold2);font-style:italic}
+
+.addzone{display:flex;flex-direction:column;gap:12px;margin-top:14px}
+.addzone:empty{display:none}
+.addzone .pt{font-size:18px;color:#dbe2f4;font-weight:300;padding-left:16px;border-left:2px solid var(--gold);line-height:1.5}
+
+/* ---------- edit mode ---------- */
+.editToggle{position:fixed;right:20px;bottom:22px;z-index:45;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:rgba(16,22,44,.85);backdrop-filter:blur(8px);color:var(--muted);font-size:17px;cursor:pointer;transition:all .25s;display:grid;place-items:center}
+.editToggle:hover{color:var(--ink);border-color:var(--blue);transform:translateY(-2px)}
+html.editing .editToggle{background:var(--blue);color:#fff;border-color:var(--blue)}
+.editbar{position:fixed;left:50%;bottom:-90px;transform:translateX(-50%);z-index:46;display:flex;align-items:center;gap:8px;background:rgba(14,20,40,.94);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:14px;padding:9px 10px;box-shadow:0 18px 50px rgba(0,0,0,.5);transition:bottom .4s cubic-bezier(.2,.8,.2,1)}
+html.editing .editbar{bottom:20px}
+.editbar .lbl{font-size:12px;color:var(--faint);padding:0 8px 0 6px;letter-spacing:.04em;display:flex;align-items:center;gap:7px}
+.editbar .lbl .dt{width:7px;height:7px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 4px rgba(91,140,255,.18)}
+.editbar button{font-family:inherit;font-size:13px;font-weight:500;border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--ink);padding:8px 14px;border-radius:9px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px}
+.editbar button:hover{background:rgba(255,255,255,.12)}
+.editbar button.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+.editbar button.primary:hover{background:#6f9bff}
+.editbar button.ghost{color:var(--muted)}
+.editbar .saved{font-size:12px;color:var(--green);opacity:0;transition:opacity .3s;padding-right:4px}
+.editbar .saved.show{opacity:1}
+html.editing .ed{outline:1px dashed rgba(143,178,255,.35);outline-offset:3px;border-radius:4px;cursor:text;transition:outline-color .2s}
+html.editing .ed:hover{outline-color:rgba(143,178,255,.7)}
+html.editing .ed:focus{outline:1px solid var(--blue);background:rgba(91,140,255,.06)}
+
+@media (max-width:900px){
+  .slide{padding:88px 26px 54px}
+  .two,.board,.disc{grid-template-columns:1fr}
+  .agrow{grid-template-columns:54px 1fr;gap:14px}
+  .agrow .meta{display:none}
+  .dh-title .dh-sub,.dh-title .dh-sep{display:none}
+  .dh-key{display:none}
+  .s1-dl{position:static;margin-bottom:18px;justify-content:flex-start}
+}
+@media (max-width:560px){ .dh-pill .pl{display:none} .dh-title b{display:none} }
+
+@media (prefers-reduced-motion:reduce){
+  .aurora::before,.aurora::after{animation:none}
+  .rise{transition:none;opacity:1;transform:none}
+  #deck{scroll-behavior:auto}
+}
+
+/* ---------- print (used to build the PDF: one slide per page) ---------- */
+@media print{
+  @page{size:1280px 720px;margin:0}
+  html,body{overflow:visible!important;height:auto!important;background:#0a0e1c!important}
+  .deckhead,.topbar,.editToggle,.editbar,#confetti,.s1-dl,.aurora,.grain{display:none!important}
+  #deck{position:static!important;height:auto!important;overflow:visible!important;scroll-snap-type:none!important;display:block!important}
+  .slide{min-height:0!important;height:720px!important;width:1280px!important;padding:56px 76px!important;
+    page-break-after:always;break-after:page;display:flex!important;align-items:center!important;
+    background:radial-gradient(1200px 800px at 78% -10%,#16224f 0%,transparent 55%),radial-gradient(1000px 700px at 8% 110%,#10203f 0%,transparent 55%),linear-gradient(160deg,#0a0e1c,#0e1530 55%,#0a0f22)!important;
+    -webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  .slide:last-child{page-break-after:auto}
+  .rise{opacity:1!important;transform:none!important}
+  .wrap{margin:0 auto}
+  /* keep multi-column layouts in the printed slides (defeat the mobile breakpoint) */
+  .two{grid-template-columns:1fr 1fr!important}
+  .board{grid-template-columns:repeat(3,1fr)!important}
+  .disc{grid-template-columns:1fr 1fr!important;max-width:620px}
+  .agrow{grid-template-columns:96px 1fr auto!important}
+  .agrow .meta{display:block!important}
+  /* gradient text can leave a faint box in print — use a solid tone */
+  .grad{-webkit-text-fill-color:#8fb2ff!important;color:#8fb2ff!important;background:none!important}
+}
+</style>
+</head>
+<body>
+<div class="aurora" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<canvas id="confetti" aria-hidden="true"></canvas>
+
+<div class="topbar"><i></i></div>
+
+<header class="deckhead">
+  <div class="dh-left">
+    <button class="dh-badge" id="dhHome" title="Back to start" aria-label="Back to start">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.5 6.9L21 11l-6.5 2.1L12 20l-2.5-6.9L3 11l6.5-2.1z"/></svg>
+    </button>
+    <div class="dh-title"><b>My Reflection</b><span class="dh-sep">·</span><span class="dh-sub">Leadership Coaching</span><span class="dh-v">v2</span></div>
+  </div>
+  <nav class="dh-nav" id="dhNav" aria-label="sections"></nav>
+  <div class="dh-right">
+    <div class="dh-arrows">
+      <button id="dhPrev" title="Previous (←)" aria-label="Previous">←</button>
+      <button id="dhNext" title="Next (→)" aria-label="Next">→</button>
+    </div>
+    <span class="dh-key">/ <kbd>space</kbd></span>
+  </div>
+</header>
+
+<main id="deck">
+
+  <!-- 1 · TITLE -->
+  <section class="slide" id="s1" data-label="Title" data-nav="Start">
+    <div class="s1-dl rise">
+      <a class="dlbtn pdf" href="reflection-slides.pdf" download title="Download the slides as PDF">
+        <span class="ft">PDF</span><span class="lbl">Slides</span>
+      </a>
+      <a class="dlbtn doc" href="reflection-handout.docx" download title="Download the text handout (Word)">
+        <span class="ft">DOC</span><span class="lbl">Handout</span>
+      </a>
+    </div>
+    <div class="wrap title-wrap">
+      <div class="tag rise"><span class="ed">Leadership Coaching · v2</span></div>
+      <h1 class="rise"><span class="ed">My</span> <span class="grad ed">Reflection</span></h1>
+      <p class="lead title-lead rise ed">What I learned, the strengths I'm building on, what I've put into practice — and my feedback to you.</p>
+      <div class="byline rise">
+        <span class="who ed">Nihir Kumar</span>
+        <span class="dot"></span><span class="ed">Sessions 0 – 10</span>
+        <span class="dot"></span><span class="ed">with Christiana Mitcheva</span>
+        <span class="dot"></span><span class="ed">Closing session · 23 September 2026</span>
+      </div>
+      <div class="addzone"></div>
+    </div>
+  </section>
+
+  <!-- 2 · AGENDA -->
+  <section class="slide" id="s2" data-label="The map" data-nav="Map">
+    <div class="wrap">
+      <div class="tag rise"><span class="n">·</span> <span class="ed">The map</span></div>
+      <h2 class="rise ed">Five things I want to walk you through</h2>
+      <div class="agenda">
+        <div class="agrow rise" data-go="2"><span class="num">01</span><span class="t ed">What I've learned</span><span class="meta ed">Feedback, trust, influence, change — and myself</span></div>
+        <div class="agrow rise" data-go="7"><span class="num">02</span><span class="t ed">Strengths I'm building on</span><span class="meta ed">What you reflected back to me</span></div>
+        <div class="agrow rise" data-go="8"><span class="num">03</span><span class="t ed">What I've put into practice</span><span class="meta ed">Done · practising · growth edges</span></div>
+        <div class="agrow rise" data-go="9"><span class="num">04</span><span class="t ed">My feedback to you</span><span class="meta ed">What helped — and a suggestion</span></div>
+        <div class="agrow rise" data-go="10"><span class="num">05</span><span class="t ed">To close</span><span class="meta ed">Where do you see me differently?</span></div>
+      </div>
+      <div class="addzone"></div>
+    </div>
+  </section>
+
+  <!-- 3 · LEARNED — feedback -->
+  <section class="slide" id="s3" data-label="Giving feedback" data-nav="Feedback">
+    <div class="wrap">
+      <div class="tag rise"><span class="n">01</span> <span class="ed">What I've learned</span></div>
+      <h2 class="rise ed">On giving feedback</h2>
+      <div class="two">
+        <div class="point rise"><h4 class="ed">Ask first, and make room</h4><p class="ed">Ask permission before giving feedback, and <span class="k">book the time</span> for it — never drop it in passing.</p></div>
+        <div class="point rise"><h4 class="ed">Speak in the "I" form</h4><p class="ed"><span class="k">I observed, I noticed, in my perception</span> — the moment I say <em>you did</em>, the other person defends.</p></div>
+        <div class="point rise"><h4 class="ed">Be concrete, not generic</h4><p class="ed">Vague feedback — even when positive — creates <span class="k">suspicion</span> rather than value.</p></div>
+        <div class="point rise"><h4 class="ed">Keep it flowing — "what else?"</h4><p class="ed">When they open up, <span class="k">"what else? what else?"</span> draws out the real message — used with dosage.</p></div>
+        <div class="point rise gold"><h4 class="ed">The inner stance carries</h4><p class="ed">Most of what lands is nonverbal. I have to find something I <span class="kg">genuinely respect</span> before I start.</p></div>
+        <div class="point rise gold"><h4 class="ed">Three kinds of receiver</h4><p class="ed">One owns it; one needs <span class="kg">several rounds</span>; one goes into denial and can't be pushed.</p></div>
+      </div>
+      <div class="addzone"></div>
+    </div>
+  </section>
+
+  <!-- 4 · LEARNED — trust -->
+  <section class="slide" id="s4" data-label="Trust" data-nav="Trust">
+    <div class="wrap">
+      <div class="tag rise"><span class="n">01</span> <span class="ed">What I've learned</span></div>
+      <h2 class="rise ed">On trust</h2>
+      <ul class="flow">
+        <li class="rise ed"><b>Trust is the foundation.</b> Feedback only works if the person already sees me as credible — the base of the pyramid, the first of the seven criteria. Most relevant with the <em>Core team</em>, where my credibility is still forming.</li>
+        <li class="rise ed"><b>The iceberg.</b> Only a quarter of a person is visible. Needs, fears and mood sit under the surface — to move someone I have to understand what really drives them, not just what I see.</li>
+        <li class="rise ed"><b>Constructive beats comfortable.</b> Critical-but-constructive feedback is where I learn most — it tells me what people expect and how they'd do it. "Thank you — what else?" keeps it open.</li>
+      </ul>
+      <div class="addzone"></div>
+    </div>
+  </section>
+
+  <!-- 5 · LEARNED — influence -->
+  <section class="slide" id="s5" data-label="Influence" data-nav="Influence">
+    <div class="wrap">
+      <div class="tag rise"><span class="n">01</span> <span class="ed">What I've learned</span></div>
+      <h2 class="rise ed">On influence &amp; stakeholders</h2>
+      <ul class="flow">
+        <li class="rise ed"><b>Lead with the value to them</b>, not with my team's pain. The pain opens the door — the value is what carries. This changed the cross-team meeting and the dashboard presentation.</li>
+        <li class="rise ed"><b>Real influence is when they own the idea themselves</b> — the biggest shift for me, given my low influence score.</li>
+        <li class="rise ed"><b>Ask each stakeholder how they want to be informed.</b> Christiana and Amauri differ — email, a short 1:1, a message. Map them by interest and power, per initiative.</li>
+        <li class="rise ed"><b>Stated agreement is not commitment.</b> Set a deadline and a proactive check, rather than waiting for something to break.</li>
+      </ul>
+      <div class="addzone"></div>
+    </div>
+  </section>
+
+  <!-- 6 · LEARNED — change & people -->
+  <section class="slide" id="s6" data-label="Change & people" data-nav="Change">
+    <div class="wrap">
+      <div class="tag rise"><span class="n">01</span> <span class="ed">What I've learned</span></div>
+      <h2 class="rise ed">On leading change &amp; leading people</h2>
+      <ul class="flow">
+        <li class="rise ed">A rule is adopted only if it's <b>concrete, valued by the team, and run as a small time-boxed pilot.</b> Small steps beat big initiatives.</li>
+        <li class="rise ed"><b>Situational leadership.</b> New to the context always starts with direction — however senior the person — then I step back as they learn.</li>
+        <li class="rise ed"><b>It's about the people, not me.</b> I'm only as good as my team is — so I deliver even hard news in <em>"we"</em> language, calmly and without fear.</li>
+        <li class="rise ed"><b>Language carries weight.</b> <em>And / nevertheless</em> instead of <em>but</em>; <em>when</em> instead of <em>if</em>; and never the words <em>never</em> and <em>always</em>.</li>
+      </ul>
+      <div class="addzone"></div>
+    </div>
+  </section>
+
+  <!-- 7 · LEARNED — myself -->
+  <section class="slide" id="s7" data-label="On myself" data-nav="Myself">
+    <div class="wrap">
+      <div class="tag rise"><span class="n">01</span> <span class="ed">What I've learned</span></div>
+      <h2 class="rise ed">On myself</h2>
+      <div class="disc">
+        <div class="cell rise"><div class="lab ed">DISC · my anchor</div><div class="val hi ed">High steadiness</div></div>
+        <div class="cell rise"><div class="lab ed">The growth edge</div><div class="val lo ed">Low influence</div></div>
+      </div>
+      <ul class="flow">
+        <li class="rise ed">I lead by <b>pulling people with me, not pushing</b> — it's who I am, and it's how I build trust. The art is sensing <em>when</em> a moment also needs a push.</li>
+        <li class="rise ed">I'm motivated more by <b>constructive challenge than by praise</b> — and I'm learning not to project that onto people who need encouragement instead.</li>
+        <li class="rise ed">My state can show before I speak — so I <em>name it to tame it</em>: "I hear you, I decide not to react right now," then choose my response deliberately.</li>
+      </ul>
+      <div class="addzone"></div>
+    </div>
+  </section>
+
+  <!-- 8 · STRENGTHS (Christiana's read) -->
+  <section class="slide" id="s8" data-label="Strengths" data-nav="Strengths">
+    <div class="wrap">
+      <div class="tag rise"><span class="n">02</span> <span class="ed">Strengths I'm building on</span></div>
+      <h2 class="rise ed">What's already working</h2>
+      <p class="sub rise ed" style="margin-bottom:6px">Reflected back to me over ten sessions.</p>
+      <div class="two">
+        <div class="point rise gold"><h4 class="ed">Structure</h4><p class="ed">More than dashboards — I bring structure to <span class="kg">behaviour and leading by example</span>. You said it's exactly the structure my people need.</p></div>
+        <div class="point rise"><h4 class="ed">Visual thinking is my language</h4><p class="ed">When a decision needs weight, I build a picture. Dashboards are how I <span class="k">communicate and lead</span> — and the product head wanted the last one taken wider.</p></div>
+        <div class="point rise"><h4 class="ed">Problem → solution</h4><p class="ed">I take a failure, gather the picture from every corner, and turn it into a <span class="k">concrete 20-point plan</span> across product, engineering and country managers.</p></div>
+        <div class="point rise gold"><h4 class="ed">The observer's read</h4><p class="ed">I contribute best by <span class="kg">observing, collecting and re-presenting clearly</span> — and I know people shift the moment they're observed.</p></div>
+        <div class="point rise wide"><h4 class="ed">And the reflection itself</h4><p class="ed">You said you were even prouder that I <span class="k">mapped honestly where the gaps still are</span> — that the reflecting is the hard work, and I'm willing to do it.</p></div>
+      </div>
+      <div class="addzone"></div>
+    </div>
+  </section>
+
+  <!-- 9 · PUT INTO PRACTICE -->
+  <section class="slide" id="s9" data-label="Into practice" data-nav="Practice">
+    <div class="wrap">
+      <div class="tag rise"><span class="n">03</span> <span class="ed">Into practice</span></div>
+      <h2 class="rise ed">What I've put into practice</h2>
+      <div class="board">
+        <div class="col done rise">
+          <div class="head"><span class="pill ed">Done</span><span class="cap ed">Demonstrated</span></div>
+          <ul>
+            <li class="ed">DISC, interest–power stakeholder map, skill–interest team matrix</li>
+            <li class="ed">Value-first framing — real buy-in; the product head wanted the dashboard taken wider</li>
+            <li class="ed">Routing up through <b>Daniel</b> first — asking him before Amauri; the relationship is now strong and mutual</li>
+            <li class="ed">1:1s to find real drivers — the automation three; Catherine's move handled over a coffee, with full support</li>
+            <li class="ed"><b>And / nevertheless</b> instead of <b>but</b>; <b>when</b> instead of <b>if</b></li>
+          </ul>
+        </div>
+        <div class="col prog rise">
+          <div class="head"><span class="pill ed">Practising</span><span class="cap ed">Underway</span></div>
+          <ul>
+            <li class="ed">Situational leadership — pull first, and daring to <b>push</b> when a call must be made (Temi &amp; the senior contractor)</li>
+            <li class="ed">Delivering firm messages <b>calmly and factually</b> — separating the message from the emotion, never from fear</li>
+            <li class="ed">Entering each conversation deliberately — checking my own state first (the Ben meeting, a blank slate)</li>
+            <li class="ed">Tailoring <b>how</b> each stakeholder wants to be informed — asking their channel and cadence</li>
+          </ul>
+        </div>
+        <div class="col open rise">
+          <div class="head"><span class="pill ed">Growth</span><span class="cap ed">Where I'm heading</span></div>
+          <ul>
+            <li class="ed"><b>Craft vs. timing</b> — I invest deeply to get things right; my edge is judging how much time a task truly deserves, and protecting focus with an urgent-vs-important sort and a fixed weekly slot for approvals</li>
+            <li class="ed"><b>Liked and decisive</b> — I build trust by making people feel respected; growing to hold a decision firmly once it's made</li>
+            <li class="ed"><b>Into the leadership identity</b> — stepping in with both feet, brave enough to present my authentic self</li>
+            <li class="ed"><b>Operative → visionary</b> — strong on delivery; next, lifting my gaze to where I want to be in three years</li>
+          </ul>
+        </div>
+      </div>
+      <div class="addzone"></div>
+    </div>
+  </section>
+
+  <!-- 10 · FEEDBACK -->
+  <section class="slide" id="s10" data-label="Feedback to you" data-nav="For you">
+    <div class="wrap">
+      <div class="tag rise"><span class="n">04</span> <span class="ed">My feedback to you</span></div>
+      <h2 class="rise ed">What helped most — and a suggestion</h2>
+      <div class="fb-grid">
+        <p class="thanks rise ed">Your <span class="h">value-first</span> reframing changed the cross-team meeting and the dashboard presentation. Learning to <span class="h">influence so an idea becomes theirs</span>. <span class="h">And / nevertheless</span> instead of <span class="h">but</span>, <span class="h">when</span> instead of <span class="h">if</span>. Situational leadership — and knowing <span class="h">when to push, not only pull</span>. The <span class="h">iceberg</span>. And <span class="h">"name it to tame it"</span> — the one I reach for most.</p>
+        <div class="fb-sug rise">
+          <div class="fb-label ed">A suggestion — offered with permission, in the "I" form, leading with value</div>
+          <div class="quote"><p class="ed">May I offer one thing, the way you taught me? In my perception, once or twice the lesson arrived while I was still laying out the picture — and the read shifted as more context came out. I'd value finishing the whole picture first, then drawing the lesson together — knowing it may well be intentional.</p></div>
+        </div>
+        <p class="note rise ed">You received it with grace — and reminded me that <b>real life hands us fragments, not the full frame</b>, so reacting well to partial context is a skill in itself. That exchange felt like the method working in both directions.</p>
+      </div>
+      <div class="addzone"></div>
+    </div>
+  </section>
+
+  <!-- 11 · CLOSE -->
+  <section class="slide" id="s11" data-label="To close" data-nav="Close">
+    <div class="wrap close-wrap">
+      <div class="tag rise"><span class="n">05</span> <span class="ed">To close</span></div>
+      <h2 class="rise ed">Three questions for you</h2>
+      <div class="qs">
+        <p class="qbig rise ed">Does this match what you have in your notes about me?</p>
+        <p class="qbig rise ed">Where do you see me <span>differently</span> from how I see myself?</p>
+        <p class="qbig rise ed">What's the <span>single development area</span> you'd tell me to keep working on after the program ends?</p>
+      </div>
+      <div class="addzone"></div>
+    </div>
+  </section>
+
+  <!-- 12 · END -->
+  <section class="slide" id="s12" data-label="Thank you" data-nav="Thanks">
+    <div class="wrap endcard">
+      <div class="tag rise" style="justify-content:center"><span class="ed">In closing</span></div>
+      <p class="big rise"><span class="ed">Thank you,</span> <span class="grad ed">Christiana</span><span class="ed">.</span></p>
+      <p class="endnote rise ed">Ten sessions ago I led by task and tightened under feedback. Today I lead with what matters to the other person, I let ideas become theirs, and I meet my own reaction before it speaks. You didn't hand me techniques — you changed how I show up.</p>
+      <p class="signoff rise ed"><em>"Be the change."</em> I'll keep the inner work going — and I'll keep in touch.</p>
+      <div class="addzone"></div>
+    </div>
+  </section>
+
+</main>
+
+<button class="editToggle" id="editToggle" title="Edit this deck">✎</button>
+<div class="editbar" id="editbar">
+  <span class="lbl"><span class="dt"></span> Editing</span>
+  <button id="addPt">＋ Add point</button>
+  <button class="ghost" id="resetBtn">Reset</button>
+  <span class="saved" id="savedMsg">✓ Saved</span>
+  <button class="primary" id="doneBtn">Done</button>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var deck = document.getElementById('deck');
+  var slides = Array.prototype.slice.call(deck.querySelectorAll('.slide'));
+  var total = slides.length;
+  var current = 0;
+  var reduceMotion = (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var confettiRAF = 0;
+  var LS_KEY = 'leadership-reflection-edits-v2';
+  var defaults = {};
+  var addedEks = {};
+
+  /* ---------- persistence ---------- */
+  function readStore(){
+    try{ var raw = localStorage.getItem(LS_KEY); return raw ? JSON.parse(raw) : {v:1,edits:{},added:[]}; }
+    catch(e){ return {v:1,edits:{},added:[]}; }
+  }
+  function writeStore(o){ try{ localStorage.setItem(LS_KEY, JSON.stringify(o)); return true; }catch(e){ return false; } }
+
+  function makeAddedNode(slideEl, ek, html){
+    var zone = slideEl.querySelector('.addzone'); if(!zone) return null;
+    var p = document.createElement('p');
+    p.className = 'pt ed'; p.dataset.ek = ek; p.innerHTML = html;
+    if(document.documentElement.classList.contains('editing')) p.contentEditable = 'true';
+    zone.appendChild(p); addedEks[ek] = true; return p;
+  }
+
+  function initContent(){
+    var store = readStore();
+    slides.forEach(function(s){
+      var n = 0;
+      s.querySelectorAll('.ed').forEach(function(el){
+        var ek = s.id + '-' + (n++);
+        el.dataset.ek = ek;
+        defaults[ek] = el.innerHTML;
+      });
+    });
+    (store.added || []).forEach(function(a){
+      var s = document.getElementById(a.slide);
+      if(s) makeAddedNode(s, a.ek, a.html);
+    });
+    var edits = store.edits || {};
+    Object.keys(edits).forEach(function(ek){
+      var el = document.querySelector('[data-ek="'+cssEsc(ek)+'"]');
+      if(el) el.innerHTML = edits[ek];
+    });
+  }
+  function cssEsc(s){ return String(s).replace(/"/g,'\\"'); }
+
+  var saveTimer=null;
+  function scheduleSave(){ if(saveTimer) clearTimeout(saveTimer); saveTimer=setTimeout(saveNow, 500); }
+  function saveNow(){
+    var edits={}, added=[];
+    document.querySelectorAll('.ed').forEach(function(el){
+      var ek = el.dataset.ek; if(!ek) return;
+      if(addedEks[ek]){ added.push({ek:ek, slide:closestSlideId(el), html:el.innerHTML}); }
+      else if(el.innerHTML !== defaults[ek]){ edits[ek]=el.innerHTML; }
+    });
+    var ok = writeStore({v:1, edits:edits, added:added});
+    if(ok) flashSaved();
+  }
+  function closestSlideId(el){ var s=el.closest('.slide'); return s?s.id:''; }
+
+  function flashSaved(){
+    var m=document.getElementById('savedMsg'); if(!m) return;
+    m.classList.add('show'); setTimeout(function(){ m.classList.remove('show'); }, 1400);
+  }
+
+  /* ---------- edit mode ---------- */
+  function setEditing(on){
+    document.documentElement.classList.toggle('editing', on);
+    document.querySelectorAll('.ed').forEach(function(el){
+      if(on) el.setAttribute('contenteditable','true'); else el.removeAttribute('contenteditable');
+    });
+    if(!on) saveNow();
+  }
+  document.getElementById('editToggle').addEventListener('click', function(){
+    setEditing(!document.documentElement.classList.contains('editing'));
+  });
+  document.getElementById('doneBtn').addEventListener('click', function(){ setEditing(false); });
+  document.getElementById('addPt').addEventListener('click', function(){
+    var s = slides[current];
+    var node = makeAddedNode(s, s.id+'-add-'+Date.now(), 'New point');
+    if(node){ node.focus(); selectAll(node); saveNow(); }
+  });
+  document.getElementById('resetBtn').addEventListener('click', function(){
+    if(!confirm('Reset all edits back to the original text? This clears your saved changes on this browser.')) return;
+    try{ localStorage.removeItem(LS_KEY); }catch(e){}
+    Object.keys(addedEks).forEach(function(ek){
+      var el=document.querySelector('[data-ek="'+cssEsc(ek)+'"]'); if(el&&el.parentNode) el.parentNode.removeChild(el);
+    });
+    addedEks={};
+    Object.keys(defaults).forEach(function(ek){
+      var el=document.querySelector('[data-ek="'+cssEsc(ek)+'"]'); if(el) el.innerHTML=defaults[ek];
+    });
+    flashSaved();
+  });
+  function selectAll(el){ try{ var r=document.createRange(); r.selectNodeContents(el); var sel=window.getSelection(); sel.removeAllRanges(); sel.addRange(r);}catch(e){} }
+
+  deck.addEventListener('input', function(e){ if(e.target.classList && e.target.classList.contains('ed')) scheduleSave(); });
+
+  /* ---------- confetti ---------- */
+  function fireConfetti(){
+    if(reduceMotion) return;
+    var c = document.getElementById('confetti'); if(!c) return;
+    var ctx = c.getContext('2d');
+    var W = c.width = window.innerWidth, H = c.height = window.innerHeight;
+    var colors = ['#5b8cff','#8fb2ff','#e6b25e','#f2cd8a','#37c08a','#e07a5f','#ffffff'];
+    var parts = [], N = 160;
+    for(var i=0;i<N;i++){
+      parts.push({
+        x: Math.random()*W, y: -20 - Math.random()*H*0.4,
+        w: 6+Math.random()*7, h: 8+Math.random()*11,
+        vx:(Math.random()-0.5)*3.2, vy: 2+Math.random()*4.5,
+        rot: Math.random()*Math.PI*2, vr:(Math.random()-0.5)*0.32,
+        col: colors[(Math.random()*colors.length)|0], shape: Math.random()<0.5?0:1
+      });
+    }
+    var start = performance.now(), dur = 3400;
+    function frame(t){
+      var el = t - start; ctx.clearRect(0,0,W,H);
+      var fade = el > dur-900 ? Math.max(0,(dur-el)/900) : 1;
+      for(var i=0;i<parts.length;i++){
+        var p = parts[i];
+        p.vy += 0.06; p.vx *= 0.995; p.x += p.vx; p.y += p.vy; p.rot += p.vr;
+        ctx.save(); ctx.globalAlpha = fade; ctx.translate(p.x,p.y); ctx.rotate(p.rot); ctx.fillStyle = p.col;
+        if(p.shape===0){ ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h); }
+        else { ctx.beginPath(); ctx.ellipse(0,0,p.w/2,p.h/2,0,0,Math.PI*2); ctx.fill(); }
+        ctx.restore();
+      }
+      if(el < dur){ confettiRAF = requestAnimationFrame(frame); }
+      else { ctx.clearRect(0,0,W,H); confettiRAF = 0; }
+    }
+    if(confettiRAF) cancelAnimationFrame(confettiRAF);
+    confettiRAF = requestAnimationFrame(frame);
+  }
+  function stopConfetti(){
+    if(confettiRAF){ cancelAnimationFrame(confettiRAF); confettiRAF = 0; }
+    var c = document.getElementById('confetti'); if(c){ var x=c.getContext('2d'); x && x.clearRect(0,0,c.width,c.height); }
+  }
+
+  /* ---------- navigation ---------- */
+  function go(i){
+    i = Math.max(0, Math.min(total-1, i));
+    slides[i].scrollIntoView({behavior:'smooth', block:'start'});
+  }
+  function isTyping(t){
+    return document.documentElement.classList.contains('editing') ||
+      (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)));
+  }
+  document.addEventListener('keydown', function(e){
+    if(isTyping(e.target)){ if(e.key==='Escape'){ setEditing(false); } return; }
+    switch(e.key){
+      case ' ': case 'PageDown': case 'ArrowDown': case 'ArrowRight':
+        e.preventDefault(); go(current+1); break;
+      case 'PageUp': case 'ArrowUp': case 'ArrowLeft':
+        e.preventDefault(); go(current-1); break;
+      case 'Home': e.preventDefault(); go(0); break;
+      case 'End': e.preventDefault(); go(total-1); break;
+      case 'e': case 'E': setEditing(!document.documentElement.classList.contains('editing')); break;
+    }
+  });
+
+  // agenda-row jumps
+  document.querySelectorAll('[data-go]').forEach(function(el){
+    el.addEventListener('click', function(){ if(!document.documentElement.classList.contains('editing')) go(parseInt(el.dataset.go,10)); });
+  });
+
+  /* ---------- top header navigator ---------- */
+  var navEl = document.getElementById('dhNav');
+  var pills = [];
+  slides.forEach(function(s, i){
+    if(i===0) return; // title slide is reached via the badge
+    var b = document.createElement('button');
+    b.className = 'dh-pill';
+    b.innerHTML = '<span class="pn">'+pad(i)+'</span><span class="pl">'+(s.dataset.nav || s.dataset.label || ('Slide '+(i+1)))+'</span>';
+    b.title = s.dataset.label || '';
+    b.addEventListener('click', function(){ go(i); });
+    navEl.appendChild(b);
+    pills[i] = b;
+  });
+  document.getElementById('dhHome').addEventListener('click', function(){ go(0); });
+  document.getElementById('dhPrev').addEventListener('click', function(){ go(current-1); });
+  document.getElementById('dhNext').addEventListener('click', function(){ go(current+1); });
+
+  var bar = document.querySelector('.topbar > i');
+  function pad(n){ return (n<10?'0':'')+n; }
+  function updateChrome(){
+    pills.forEach(function(p,i){ if(p) p.classList.toggle('on', i===current); });
+    bar.style.width = (((current+1)/total)*100)+'%';
+    var active = pills[current];
+    if(active && navEl.scrollWidth > navEl.clientWidth){
+      var target = active.offsetLeft - navEl.clientWidth/2 + active.offsetWidth/2;
+      navEl.scrollTo({left: Math.max(0,target), behavior:'smooth'});
+    }
+  }
+
+  function revealIn(s){
+    var rs = Array.prototype.slice.call(s.querySelectorAll('.rise'));
+    rs.forEach(function(r, idx){ setTimeout(function(){ r.classList.add('in'); }, 70 + idx*70); });
+  }
+  function setActive(i){
+    if(i===current && slides[i].classList.contains('active')){ updateChrome(); return; }
+    current = i;
+    slides.forEach(function(s, idx){
+      if(idx===i){ if(!s.classList.contains('active')){ s.classList.add('active'); revealIn(s); if(i===total-1) setTimeout(fireConfetti, 260);} }
+      else { s.classList.remove('active'); s.querySelectorAll('.rise.in').forEach(function(r){ r.classList.remove('in'); }); }
+    });
+    if(i !== total-1) stopConfetti();
+    updateChrome();
+  }
+
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting && e.intersectionRatio >= 0.55){ setActive(slides.indexOf(e.target)); }
+    });
+  }, {root:deck, threshold:[0.55]});
+  slides.forEach(function(s){ io.observe(s); });
+
+  /* ---------- boot ---------- */
+  initContent();
+  setActive(0);
+  setTimeout(function(){ revealIn(slides[0]); updateChrome(); }, 60);
+})();
+</script>
+</body>
+</html>
